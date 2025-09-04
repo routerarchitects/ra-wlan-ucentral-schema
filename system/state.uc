@@ -105,7 +105,7 @@ let finger_config = cursor.get_all("state", "fingerprint");
 let finger_state = json(fs.readfile('/tmp/finger.state') || '{}');
 let fingerprint;
 if (finger_config?.mode != 'polled')
-	fingerprint = ctx.call("fingerprint", "fingerprint", { age: +(finger_config?.min_age || 0), raw: (finger_config?.mode == 'raw') }) || {};
+	fingerprint = ctx.call("fingerprint", "fingerprint", { age: +(finger_config?.min_age || 0), raw: (finger_config?.mode == 'raw-data') }) || {};
 let finger_wan = [];
 if (!+finger_config?.allow_wan) 
 	for (let k in cursor.get("event", "config", "wan_port"))
@@ -570,7 +570,7 @@ function get_fingerprint(mac, ports) {
 	if (ports)
 		for (let port in finger_wan)
 			if (port in ports)
-				return 0;
+				return null;
 	if ((time() - finger_state[mac].reported || 0) < (+finger_config.period || 0))
 		return null;
 	finger_state[mac].reported = time();
