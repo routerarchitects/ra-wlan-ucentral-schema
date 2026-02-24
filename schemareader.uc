@@ -11078,6 +11078,1175 @@ function instantiateTimeouts(location, value, errors) {
 	return value;
 }
 
+function instantiateNatSnat(location, value, errors) {
+	if (type(value) == "object") {
+		let obj = {};
+
+		function parseRuleId(location, value, errors) {
+			if (type(value) in [ "int", "double" ]) {
+				if (value < 1)
+					push(errors, [ location, "must be bigger than or equal to 1" ]);
+
+			}
+
+			if (type(value) != "int")
+				push(errors, [ location, "must be of type integer" ]);
+
+			return value;
+		}
+
+		if (exists(value, "rule-id")) {
+			obj.rule_id = parseRuleId(location + "/rule-id", value["rule-id"], errors);
+		}
+		else {
+			push(errors, [ location, "is required" ]);
+		}
+
+		function parseDescription(location, value, errors) {
+			if (type(value) != "string")
+				push(errors, [ location, "must be of type string" ]);
+
+			return value;
+		}
+
+		if (exists(value, "description")) {
+			obj.description = parseDescription(location + "/description", value["description"], errors);
+		}
+
+		function parseDisable(location, value, errors) {
+			if (type(value) != "bool")
+				push(errors, [ location, "must be of type boolean" ]);
+
+			return value;
+		}
+
+		if (exists(value, "disable")) {
+			obj.disable = parseDisable(location + "/disable", value["disable"], errors);
+		}
+		else {
+			obj.disable = false;
+		}
+
+		function parseProtocol(location, value, errors) {
+			if (type(value) != "string")
+				push(errors, [ location, "must be of type string" ]);
+
+			return value;
+		}
+
+		if (exists(value, "protocol")) {
+			obj.protocol = parseProtocol(location + "/protocol", value["protocol"], errors);
+		}
+		else {
+			obj.protocol = "all";
+		}
+
+		function parseOutInterface(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseName(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "name")) {
+					obj.name = parseName(location + "/name", value["name"], errors);
+				}
+
+				function parseGroup(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "group")) {
+					obj.group = parseGroup(location + "/group", value["group"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "out-interface")) {
+			obj.out_interface = parseOutInterface(location + "/out-interface", value["out-interface"], errors);
+		}
+		else {
+			push(errors, [ location, "is required" ]);
+		}
+
+		function parseSource(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseAddress(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "address")) {
+					obj.address = parseAddress(location + "/address", value["address"], errors);
+				}
+
+				function parsePort(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "port")) {
+					obj.port = parsePort(location + "/port", value["port"], errors);
+				}
+
+				function parseFqdn(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "fqdn")) {
+					obj.fqdn = parseFqdn(location + "/fqdn", value["fqdn"], errors);
+				}
+
+				function parseGroup(location, value, errors) {
+					if (type(value) == "object") {
+						let obj = {};
+
+						function parsePortGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "port-group")) {
+							obj.port_group = parsePortGroup(location + "/port-group", value["port-group"], errors);
+						}
+
+						function parseNetworkGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "network-group")) {
+							obj.network_group = parseNetworkGroup(location + "/network-group", value["network-group"], errors);
+						}
+
+						function parseMacGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "mac-group")) {
+							obj.mac_group = parseMacGroup(location + "/mac-group", value["mac-group"], errors);
+						}
+
+						function parseDomainGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "domain-group")) {
+							obj.domain_group = parseDomainGroup(location + "/domain-group", value["domain-group"], errors);
+						}
+
+						function parseAddressGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "address-group")) {
+							obj.address_group = parseAddressGroup(location + "/address-group", value["address-group"], errors);
+						}
+
+						return obj;
+					}
+
+					if (type(value) != "object")
+						push(errors, [ location, "must be of type object" ]);
+
+					return value;
+				}
+
+				if (exists(value, "group")) {
+					obj.group = parseGroup(location + "/group", value["group"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "source")) {
+			obj.source = parseSource(location + "/source", value["source"], errors);
+		}
+
+		function parseDestination(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseAddress(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "address")) {
+					obj.address = parseAddress(location + "/address", value["address"], errors);
+				}
+
+				function parsePort(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "port")) {
+					obj.port = parsePort(location + "/port", value["port"], errors);
+				}
+
+				function parseFqdn(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "fqdn")) {
+					obj.fqdn = parseFqdn(location + "/fqdn", value["fqdn"], errors);
+				}
+
+				function parseGroup(location, value, errors) {
+					if (type(value) == "object") {
+						let obj = {};
+
+						function parsePortGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "port-group")) {
+							obj.port_group = parsePortGroup(location + "/port-group", value["port-group"], errors);
+						}
+
+						function parseNetworkGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "network-group")) {
+							obj.network_group = parseNetworkGroup(location + "/network-group", value["network-group"], errors);
+						}
+
+						function parseMacGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "mac-group")) {
+							obj.mac_group = parseMacGroup(location + "/mac-group", value["mac-group"], errors);
+						}
+
+						function parseDomainGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "domain-group")) {
+							obj.domain_group = parseDomainGroup(location + "/domain-group", value["domain-group"], errors);
+						}
+
+						function parseAddressGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "address-group")) {
+							obj.address_group = parseAddressGroup(location + "/address-group", value["address-group"], errors);
+						}
+
+						return obj;
+					}
+
+					if (type(value) != "object")
+						push(errors, [ location, "must be of type object" ]);
+
+					return value;
+				}
+
+				if (exists(value, "group")) {
+					obj.group = parseGroup(location + "/group", value["group"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "destination")) {
+			obj.destination = parseDestination(location + "/destination", value["destination"], errors);
+		}
+
+		function parseTranslation(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseAddress(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "address")) {
+					obj.address = parseAddress(location + "/address", value["address"], errors);
+				}
+				else {
+					push(errors, [ location, "is required" ]);
+				}
+
+				function parsePort(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "port")) {
+					obj.port = parsePort(location + "/port", value["port"], errors);
+				}
+
+				function parseOptions(location, value, errors) {
+					if (type(value) == "object") {
+						let obj = {};
+
+						function parsePortMapping(location, value, errors) {
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "port-mapping")) {
+							obj.port_mapping = parsePortMapping(location + "/port-mapping", value["port-mapping"], errors);
+						}
+						else {
+							obj.port_mapping = "none";
+						}
+
+						function parseAddressMapping(location, value, errors) {
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "address-mapping")) {
+							obj.address_mapping = parseAddressMapping(location + "/address-mapping", value["address-mapping"], errors);
+						}
+						else {
+							obj.address_mapping = "random";
+						}
+
+						return obj;
+					}
+
+					if (type(value) != "object")
+						push(errors, [ location, "must be of type object" ]);
+
+					return value;
+				}
+
+				if (exists(value, "options")) {
+					obj.options = parseOptions(location + "/options", value["options"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "translation")) {
+			obj.translation = parseTranslation(location + "/translation", value["translation"], errors);
+		}
+		else {
+			push(errors, [ location, "is required" ]);
+		}
+
+		return obj;
+	}
+
+	if (type(value) != "object")
+		push(errors, [ location, "must be of type object" ]);
+
+	return value;
+}
+
+function instantiateNatDnat(location, value, errors) {
+	if (type(value) == "object") {
+		let obj = {};
+
+		function parseRuleId(location, value, errors) {
+			if (type(value) in [ "int", "double" ]) {
+				if (value < 1)
+					push(errors, [ location, "must be bigger than or equal to 1" ]);
+
+			}
+
+			if (type(value) != "int")
+				push(errors, [ location, "must be of type integer" ]);
+
+			return value;
+		}
+
+		if (exists(value, "rule-id")) {
+			obj.rule_id = parseRuleId(location + "/rule-id", value["rule-id"], errors);
+		}
+		else {
+			push(errors, [ location, "is required" ]);
+		}
+
+		function parseDescription(location, value, errors) {
+			if (type(value) != "string")
+				push(errors, [ location, "must be of type string" ]);
+
+			return value;
+		}
+
+		if (exists(value, "description")) {
+			obj.description = parseDescription(location + "/description", value["description"], errors);
+		}
+
+		function parseDisable(location, value, errors) {
+			if (type(value) != "bool")
+				push(errors, [ location, "must be of type boolean" ]);
+
+			return value;
+		}
+
+		if (exists(value, "disable")) {
+			obj.disable = parseDisable(location + "/disable", value["disable"], errors);
+		}
+		else {
+			obj.disable = false;
+		}
+
+		function parseProtocol(location, value, errors) {
+			if (type(value) != "string")
+				push(errors, [ location, "must be of type string" ]);
+
+			return value;
+		}
+
+		if (exists(value, "protocol")) {
+			obj.protocol = parseProtocol(location + "/protocol", value["protocol"], errors);
+		}
+		else {
+			obj.protocol = "all";
+		}
+
+		function parseInInterface(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseName(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "name")) {
+					obj.name = parseName(location + "/name", value["name"], errors);
+				}
+
+				function parseGroup(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "group")) {
+					obj.group = parseGroup(location + "/group", value["group"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "in-interface")) {
+			obj.in_interface = parseInInterface(location + "/in-interface", value["in-interface"], errors);
+		}
+		else {
+			push(errors, [ location, "is required" ]);
+		}
+
+		function parseSource(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseAddress(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "address")) {
+					obj.address = parseAddress(location + "/address", value["address"], errors);
+				}
+
+				function parsePort(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "port")) {
+					obj.port = parsePort(location + "/port", value["port"], errors);
+				}
+
+				function parseFqdn(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "fqdn")) {
+					obj.fqdn = parseFqdn(location + "/fqdn", value["fqdn"], errors);
+				}
+
+				function parseGroup(location, value, errors) {
+					if (type(value) == "object") {
+						let obj = {};
+
+						function parsePortGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "port-group")) {
+							obj.port_group = parsePortGroup(location + "/port-group", value["port-group"], errors);
+						}
+
+						function parseNetworkGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "network-group")) {
+							obj.network_group = parseNetworkGroup(location + "/network-group", value["network-group"], errors);
+						}
+
+						function parseMacGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "mac-group")) {
+							obj.mac_group = parseMacGroup(location + "/mac-group", value["mac-group"], errors);
+						}
+
+						function parseDomainGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "domain-group")) {
+							obj.domain_group = parseDomainGroup(location + "/domain-group", value["domain-group"], errors);
+						}
+
+						function parseAddressGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "address-group")) {
+							obj.address_group = parseAddressGroup(location + "/address-group", value["address-group"], errors);
+						}
+
+						return obj;
+					}
+
+					if (type(value) != "object")
+						push(errors, [ location, "must be of type object" ]);
+
+					return value;
+				}
+
+				if (exists(value, "group")) {
+					obj.group = parseGroup(location + "/group", value["group"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "source")) {
+			obj.source = parseSource(location + "/source", value["source"], errors);
+		}
+
+		function parseDestination(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseAddress(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "address")) {
+					obj.address = parseAddress(location + "/address", value["address"], errors);
+				}
+
+				function parsePort(location, value, errors) {
+					if (type(value) == "string") {
+						if (length(value) < 1)
+							push(errors, [ location, "must be at least 1 characters long" ]);
+
+					}
+
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "port")) {
+					obj.port = parsePort(location + "/port", value["port"], errors);
+				}
+
+				function parseFqdn(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "fqdn")) {
+					obj.fqdn = parseFqdn(location + "/fqdn", value["fqdn"], errors);
+				}
+
+				function parseGroup(location, value, errors) {
+					if (type(value) == "object") {
+						let obj = {};
+
+						function parsePortGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "port-group")) {
+							obj.port_group = parsePortGroup(location + "/port-group", value["port-group"], errors);
+						}
+
+						function parseNetworkGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "network-group")) {
+							obj.network_group = parseNetworkGroup(location + "/network-group", value["network-group"], errors);
+						}
+
+						function parseMacGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "mac-group")) {
+							obj.mac_group = parseMacGroup(location + "/mac-group", value["mac-group"], errors);
+						}
+
+						function parseDomainGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "domain-group")) {
+							obj.domain_group = parseDomainGroup(location + "/domain-group", value["domain-group"], errors);
+						}
+
+						function parseAddressGroup(location, value, errors) {
+							if (type(value) == "string") {
+								if (length(value) < 1)
+									push(errors, [ location, "must be at least 1 characters long" ]);
+
+							}
+
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "address-group")) {
+							obj.address_group = parseAddressGroup(location + "/address-group", value["address-group"], errors);
+						}
+
+						return obj;
+					}
+
+					if (type(value) != "object")
+						push(errors, [ location, "must be of type object" ]);
+
+					return value;
+				}
+
+				if (exists(value, "group")) {
+					obj.group = parseGroup(location + "/group", value["group"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "destination")) {
+			obj.destination = parseDestination(location + "/destination", value["destination"], errors);
+		}
+
+		function parseTranslation(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseRedirect(location, value, errors) {
+					if (type(value) == "object") {
+						let obj = {};
+
+						function parsePort(location, value, errors) {
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "port")) {
+							obj.port = parsePort(location + "/port", value["port"], errors);
+						}
+
+						return obj;
+					}
+
+					if (type(value) != "object")
+						push(errors, [ location, "must be of type object" ]);
+
+					return value;
+				}
+
+				if (exists(value, "redirect")) {
+					obj.redirect = parseRedirect(location + "/redirect", value["redirect"], errors);
+				}
+
+				function parseAddress(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "address")) {
+					obj.address = parseAddress(location + "/address", value["address"], errors);
+				}
+
+				function parsePort(location, value, errors) {
+					if (type(value) != "string")
+						push(errors, [ location, "must be of type string" ]);
+
+					return value;
+				}
+
+				if (exists(value, "port")) {
+					obj.port = parsePort(location + "/port", value["port"], errors);
+				}
+
+				function parseOptions(location, value, errors) {
+					if (type(value) == "object") {
+						let obj = {};
+
+						function parsePortMapping(location, value, errors) {
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "port-mapping")) {
+							obj.port_mapping = parsePortMapping(location + "/port-mapping", value["port-mapping"], errors);
+						}
+						else {
+							obj.port_mapping = "none";
+						}
+
+						function parseAddressMapping(location, value, errors) {
+							if (type(value) != "string")
+								push(errors, [ location, "must be of type string" ]);
+
+							return value;
+						}
+
+						if (exists(value, "address-mapping")) {
+							obj.address_mapping = parseAddressMapping(location + "/address-mapping", value["address-mapping"], errors);
+						}
+						else {
+							obj.address_mapping = "random";
+						}
+
+						return obj;
+					}
+
+					if (type(value) != "object")
+						push(errors, [ location, "must be of type object" ]);
+
+					return value;
+				}
+
+				if (exists(value, "options")) {
+					obj.options = parseOptions(location + "/options", value["options"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "translation")) {
+			obj.translation = parseTranslation(location + "/translation", value["translation"], errors);
+		}
+		else {
+			push(errors, [ location, "is required" ]);
+		}
+
+		return obj;
+	}
+
+	if (type(value) != "object")
+		push(errors, [ location, "must be of type object" ]);
+
+	return value;
+}
+
+function instantiateNat(location, value, errors) {
+	if (type(value) == "object") {
+		let obj = {};
+
+		function parseSnat(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseRules(location, value, errors) {
+					if (type(value) == "array") {
+						return map(value, (item, i) => instantiateNatSnat(location + "/" + i, item, errors));
+					}
+
+					if (type(value) != "array")
+						push(errors, [ location, "must be of type array" ]);
+
+					return value;
+				}
+
+				if (exists(value, "rules")) {
+					obj.rules = parseRules(location + "/rules", value["rules"], errors);
+				}
+				else {
+					obj.rules = [ ];
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "snat")) {
+			obj.snat = parseSnat(location + "/snat", value["snat"], errors);
+		}
+
+		function parseDnat(location, value, errors) {
+			if (type(value) == "object") {
+				let obj = {};
+
+				function parseRules(location, value, errors) {
+					if (type(value) == "array") {
+						return map(value, (item, i) => instantiateNatDnat(location + "/" + i, item, errors));
+					}
+
+					if (type(value) != "array")
+						push(errors, [ location, "must be of type array" ]);
+
+					return value;
+				}
+
+				if (exists(value, "rules")) {
+					obj.rules = parseRules(location + "/rules", value["rules"], errors);
+				}
+
+				return obj;
+			}
+
+			if (type(value) != "object")
+				push(errors, [ location, "must be of type object" ]);
+
+			return value;
+		}
+
+		if (exists(value, "dnat")) {
+			obj.dnat = parseDnat(location + "/dnat", value["dnat"], errors);
+		}
+
+		return obj;
+	}
+
+	if (type(value) != "object")
+		push(errors, [ location, "must be of type object" ]);
+
+	return value;
+}
+
 function newUCentralState(location, value, errors) {
 	if (type(value) == "object") {
 		let obj = {};
@@ -11182,6 +12351,10 @@ function newUCentralState(location, value, errors) {
 
 		if (exists(value, "timeouts")) {
 			obj.timeouts = instantiateTimeouts(location + "/timeouts", value["timeouts"], errors);
+		}
+
+		if (exists(value, "nat")) {
+			obj.nat = instantiateNat(location + "/nat", value["nat"], errors);
 		}
 
 		function parseThirdParty(location, value, errors) {

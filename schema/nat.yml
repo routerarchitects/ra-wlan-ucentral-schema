@@ -1,0 +1,23 @@
+type: object
+additionalProperties: false
+properties:
+  snat:
+    type: object
+    description: IPV4 Source NAT Configurations (SNAT).
+    additionalProperties: false
+    properties:
+      rules:
+        type: array
+        default: []
+        items:
+            $ref: "https://ucentral.io/schema/v1/nat/snat/"
+
+  dnat:
+    type: object
+    description: IPV4 Destination NAT Configurations (DNAT).
+    additionalProperties: false
+    properties:
+      rules:
+        type: array
+        items:
+          $ref: "https://ucentral.io/schema/v1/nat/dnat/"

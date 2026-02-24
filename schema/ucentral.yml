@@ -40,6 +40,8 @@ properties:
     $ref: "https://ucentral.io/schema/v1/config-raw/"
   timeouts:
     $ref: "https://ucentral.io/schema/v1/timeouts/"
+  nat:
+    $ref: "https://ucentral.io/schema/v1/nat/"
   third-party:
     type: object
     additionalProperties: true

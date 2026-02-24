@@ -55,6 +55,9 @@
         "timeouts": {
             "$ref": "#/$defs/timeouts"
         },
+        "nat": {
+            "$ref": "#/$defs/nat"
+        },
         "third-party": {
             "type": "object",
             "additionalProperties": true
@@ -4561,6 +4564,378 @@
                 "validate": {
                     "description": "How long the client has time to connect to the cloud before discovery is restarted.",
                     "type": "integer"
+                }
+            }
+        },
+        "nat.snat": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "SNAT rules",
+            "required": [
+                "rule-id",
+                "out-interface",
+                "translation"
+            ],
+            "properties": {
+                "rule-id": {
+                    "description": "Rule unique Identifier.",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "description": {
+                    "type": "string"
+                },
+                "disable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If true, rule is disabled."
+                },
+                "protocol": {
+                    "type": "string",
+                    "default": "all",
+                    "description": "Protocol match (eg. tcp,udp)."
+                },
+                "out-interface": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "description": "Interface selector by name or group.",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "group": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "source": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string",
+                            "description": "Address or CIDR (uc-cidr, uc-ip, any, local)."
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Port or port-range (e.g. \"80\", \"1024-2048\")."
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "destination": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string",
+                            "description": "Address or CIDR (uc-cidr, uc-ip, any, local)."
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Port or port-range (e.g. \"80\", \"1024-2048\")."
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "translation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "address"
+                    ],
+                    "properties": {
+                        "address": {
+                            "type": "string",
+                            "description": "Translated source address (IP  keyword like \"masquerade\")."
+                        },
+                        "port": {
+                            "type": "string",
+                            "description": "Translated port  (e.g. \"80\")."
+                        },
+                        "options": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-mapping": {
+                                    "type": "string",
+                                    "default": "none",
+                                    "description": "Port mapping strategy (platform-specific values may exist)."
+                                },
+                                "address-mapping": {
+                                    "type": "string",
+                                    "default": "random",
+                                    "description": "Address mapping strategy (platform-specific values may exist)."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "nat.dnat": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "DNAT rules",
+            "required": [
+                "rule-id",
+                "in-interface",
+                "translation"
+            ],
+            "properties": {
+                "rule-id": {
+                    "description": "Rule unique Identifier.",
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "description": {
+                    "type": "string"
+                },
+                "disable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If true, rule is disabled."
+                },
+                "protocol": {
+                    "type": "string",
+                    "default": "all",
+                    "description": "Protocol match (eg. tcp,udp)."
+                },
+                "in-interface": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "description": "Interface selector by name or group.",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "group": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "source": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string",
+                            "description": "Address or CIDR (uc-cidr, uc-ip, any, local)."
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Port or port-range (e.g. \"80\", \"1024-2048\")."
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "destination": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string",
+                            "description": "Address or CIDR (uc-cidr, uc-ip, any, local)."
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Port or port-range (e.g. \"80\", \"1024-2048\")."
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "translation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "redirect": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port": {
+                                    "type": "string",
+                                    "description": "Redirect to local port or port-range (e.g. \"80\", \"1024-2048\")."
+                                }
+                            }
+                        },
+                        "address": {
+                            "type": "string",
+                            "description": "Translated destination address (IP)."
+                        },
+                        "port": {
+                            "type": "string",
+                            "description": "Translated destination port (e.g. \"80\")."
+                        },
+                        "options": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-mapping": {
+                                    "type": "string",
+                                    "default": "none",
+                                    "description": "Port mapping strategy (platform-specific values may exist)."
+                                },
+                                "address-mapping": {
+                                    "type": "string",
+                                    "default": "random",
+                                    "description": "Address mapping strategy (platform-specific values may exist)."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "nat": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "snat": {
+                    "type": "object",
+                    "description": "IPV4 Source NAT Configurations (SNAT).",
+                    "additionalProperties": false,
+                    "properties": {
+                        "rules": {
+                            "type": "array",
+                            "default": [],
+                            "items": {
+                                "$ref": "#/$defs/nat.snat"
+                            }
+                        }
+                    }
+                },
+                "dnat": {
+                    "type": "object",
+                    "description": "IPV4 Destination NAT Configurations (DNAT).",
+                    "additionalProperties": false,
+                    "properties": {
+                        "rules": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/nat.dnat"
+                            }
+                        }
+                    }
                 }
             }
         }

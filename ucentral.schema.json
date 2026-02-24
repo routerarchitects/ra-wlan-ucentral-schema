@@ -52,6 +52,9 @@
         "timeouts": {
             "$ref": "#/$defs/timeouts"
         },
+        "nat": {
+            "$ref": "#/$defs/nat"
+        },
         "third-party": {
             "type": "object",
             "additionalProperties": true
@@ -3965,6 +3968,343 @@
                 },
                 "validate": {
                     "type": "integer"
+                }
+            }
+        },
+        "nat.snat": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "rule-id",
+                "out-interface",
+                "translation"
+            ],
+            "properties": {
+                "rule-id": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "disable": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "protocol": {
+                    "type": "string",
+                    "default": "all"
+                },
+                "out-interface": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "group": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "source": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "destination": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "translation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "address"
+                    ],
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string"
+                        },
+                        "options": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-mapping": {
+                                    "type": "string",
+                                    "default": "none"
+                                },
+                                "address-mapping": {
+                                    "type": "string",
+                                    "default": "random"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "nat.dnat": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "rule-id",
+                "in-interface",
+                "translation"
+            ],
+            "properties": {
+                "rule-id": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "disable": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "protocol": {
+                    "type": "string",
+                    "default": "all"
+                },
+                "in-interface": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "group": {
+                            "type": "string",
+                            "minLength": 1
+                        }
+                    }
+                },
+                "source": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "destination": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "fqdn": {
+                            "type": "string"
+                        },
+                        "group": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "network-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "mac-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "domain-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "address-group": {
+                                    "type": "string",
+                                    "minLength": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "translation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "redirect": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string"
+                        },
+                        "options": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "port-mapping": {
+                                    "type": "string",
+                                    "default": "none"
+                                },
+                                "address-mapping": {
+                                    "type": "string",
+                                    "default": "random"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "nat": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "snat": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "rules": {
+                            "type": "array",
+                            "default": [],
+                            "items": {
+                                "$ref": "#/$defs/nat.snat"
+                            }
+                        }
+                    }
+                },
+                "dnat": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "rules": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/nat.dnat"
+                            }
+                        }
+                    }
                 }
             }
         }
