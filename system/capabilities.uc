@@ -75,14 +75,14 @@ capa.compatible = replace(board.model.id, ',', '_');
 capa.model = board.model.name;
 
 capa.version = {
-	'ap': version,
+	'olg': version,
 	schema
 };
 
 if (board.bridge && board.bridge.name == "switch")
 	capa.platform = "switch";
 else if (length(wifi))
-	capa.platform = "ap";
+	capa.platform = "olg";
 else
 	capa.platform = "unknown";
 

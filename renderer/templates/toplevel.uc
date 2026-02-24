@@ -191,4 +191,7 @@
 
 	latency.write();
 	services.set_enabled("bridger", false);
+
+	if (state.nat)
+	     include('nat.uc', { location: '/nat/', nat: state.nat});
 %}

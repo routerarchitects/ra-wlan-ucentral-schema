@@ -507,6 +507,13 @@ let ethernet = {
 				return this.calculate_name(interface);
 		return '';
 	},
+ 
+	find_zone: function(name) { 
+                for (let interface in state.interfaces)                           
+                        if (interface.name == name )                                      
+                                return this.calculate_name(interface);                                
+                return '';                                                                  
+        },
 
 	get_interface: function(role, vid) {
 		for (let interface in state.interfaces)
