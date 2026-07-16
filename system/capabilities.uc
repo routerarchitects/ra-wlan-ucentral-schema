@@ -84,7 +84,7 @@ if (board.bridge && board.bridge.name == "switch")
 else if (length(wifi))
 	capa.platform = "olg";
 else
-	capa.platform = "unknown";
+	capa.platform = "olg";
 
 if (board.switch) {
 	capa.switch = [];
