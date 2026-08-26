@@ -36,7 +36,48 @@
 		interface.ssids[0].encryption.proto = 'psk2';
 		interface.ssids[0].encryption.key = admin_ui.wifi_key;
 	}
+
 	push(state.interfaces, interface);
+
+	let wan = null;
+	for (let iface in state.interfaces) {
+		if (iface.role != 'upstream')
+			continue;
+		wan = iface;
+		if (iface.name == 'WAN')
+			break;
+	}
+
+	if (!wan)
+		return;
+
+	let serial_suffix = replace(uc(serial || ''), /[^A-Z0-9]/g, '');
+	if (length(serial_suffix) > 6)
+		serial_suffix = substr(serial_suffix, length(serial_suffix) - 6);
+	if (!length(serial_suffix))
+		serial_suffix = 'UNKNOWN';
+
+	wan.ssids ??= [];
+
+	push(wan.ssids, {
+		name: 'OWF-' + serial_suffix + '-2G',
+		wifi_bands: [ '2G' ],
+		bss_mode: 'ap',
+		encryption: {
+			proto: 'psk2',
+			key: 'Test@12345'
+		}
+	});
+
+	push(wan.ssids, {
+		name: 'OWF-' + serial_suffix + '-5G',
+		wifi_bands: [ '5G' ],
+		bss_mode: 'ap',
+		encryption: {
+			proto: 'psk2',
+			key: 'Test@12345'
+		}
+	});
 %}
 
 set state.ui.offline_trigger={{ admin_ui.offline_trigger }}
