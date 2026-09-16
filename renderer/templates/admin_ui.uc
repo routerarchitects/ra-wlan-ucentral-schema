@@ -3,6 +3,14 @@
 	if (!admin_ui?.wifi_ssid)
 		return;
 
+	let serial_suffix = replace(uc(serial || ''), /[^A-Z0-9]/g, '');
+	if (length(serial_suffix) > 6)
+		serial_suffix = substr(serial_suffix, length(serial_suffix) - 6);
+	if (!length(serial_suffix))
+		serial_suffix = 'UNKNOWN';
+
+	let management_ssid = admin_ui.wifi_ssid + '-' + serial_suffix;
+
 	let interface = {
 		admin_ui: true,
 		name: 'Admin-UI',
@@ -20,7 +28,7 @@
 		},
 		ssids: [
 			{
-				name: admin_ui.wifi_ssid,
+				name: management_ssid,
 				wifi_bands: [ '2G', '5G' ],
 				bss_mode: 'ap',
 				encryption: {
@@ -50,12 +58,6 @@
 
 	if (!wan)
 		return;
-
-	let serial_suffix = replace(uc(serial || ''), /[^A-Z0-9]/g, '');
-	if (length(serial_suffix) > 6)
-		serial_suffix = substr(serial_suffix, length(serial_suffix) - 6);
-	if (!length(serial_suffix))
-		serial_suffix = 'UNKNOWN';
 
 	wan.ssids ??= [];
 
